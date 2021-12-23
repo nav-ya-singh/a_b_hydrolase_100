@@ -1,0 +1,31 @@
+from __future__ import print_function
+import sys
+import os
+from collections import Counter
+from gemmi import cif, CifWalk
+import pandas as pd
+import matplotlib.pyplot as plt
+
+def get_file_paths_from_args():
+    for arg in sys.argv[1:]:
+        if os.path.isdir(arg):
+            for path in CifWalk(arg):
+                yield path
+        else:
+            print('input acceptable argument; needs to be a directory')
+
+totals = Counter()
+for path in get_file_paths_from_args():
+    block = cif.read(path).sole_block()
+    sequence = block.find('_entity_poly_seq.', ['entity_id', 'mon_id'])
+    entity_types = dict(block.find('_entity_poly.', ['entity_id', 'type']))
+    aa_counter = Counter(row.str(1) for row in sequence
+                         if 'polypeptide' in entity_types[row.str(0)])
+    totals += aa_counter
+    f = 100.0 / sum(totals.values())
+    singular_file_data = [[block.name, *('%s:%d' % c for c in aa_counter.most_common())],
+            [block.name + ' percent values: ', *('%s:%.2f%%' % (m, c*f) for (m, c) in totals.most_common(20))]]
+    print(singular_file_data)
+    singular_file_data = []
+
+
