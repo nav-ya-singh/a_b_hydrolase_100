@@ -9,7 +9,6 @@ lines_list = []
 for line in args.filename:
     stripped_line = line.strip()
     lines_list.append(stripped_line)
-print(lines_list)
 
 print("start download")
 for pdb_id in lines_list:
