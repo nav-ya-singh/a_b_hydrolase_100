@@ -3,6 +3,7 @@
 This script executes the following pipeline:
 
 1. Pass in a pdb id txt file (throught the bash command line), download all the cif files from their pdb ids
+> run parse_download.py in its own directory
 > I suggest to create a folder/directory to separately store just the pdb ids
 
 2. Count the number of amino acids in unique chains per cif file, and output plots of the amino acid counts and percentages for all the pdbs in the text file.
