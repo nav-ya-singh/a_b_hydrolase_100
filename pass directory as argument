@@ -1,0 +1,5 @@
+python data_visualization.py <directory name>
+
+# OR if terminal is already in the newly created cif.gz file folder:
+
+python data_visualization.py ./
