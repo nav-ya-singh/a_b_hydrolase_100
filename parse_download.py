@@ -1,4 +1,3 @@
-from __future__ import print_function
 import argparse
 import requests
 
@@ -17,4 +16,4 @@ for pdb_id in lines_list:
     filename = url.split('/')[-1]
     with open(filename, 'wb') as cif_file:
         cif_file.write(r.content)
-print('download_complete')
+print('download complete')
